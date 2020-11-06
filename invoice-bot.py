@@ -9,6 +9,11 @@ from config import api_key
 from discord.ext import commands, tasks
 from itertools import cycle
 
+# Setting secret environment variables.
+from dotenv import load_dotenv
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 
 status = cycle(["Managing the server", "Writing some music", "Making memes"])
 
@@ -100,4 +105,4 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 # .run() will take the token as an identifying argument.
-client.run(api_key)
+client.run(API_KEY)
