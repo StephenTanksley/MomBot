@@ -5,7 +5,6 @@ import discord
 import random
 import os
 # import requests
-from config import api_key
 from discord.ext import commands, tasks
 from itertools import cycle
 
