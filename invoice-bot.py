@@ -1,9 +1,10 @@
-#  https://www.youtube.c om/watch?v=THj99FuPJmI&t=20s
+#  https://www.youtube.com/watch?v=THj99FuPJmI&t=20s
 
 # Imports - we just want to pull in the module and extract commands.
 import discord
 import random
 import os
+# import requests
 from config import api_key
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -15,6 +16,8 @@ client = commands.Bot(command_prefix='!')
 
 # When the bot has the information it needs from Discord, the bot is in a ready state. It is ready to execute its function. Read docs for the on_ready state.
 
+# If we assign the bot a role on the channel, it can do everything that a user with that role can do.
+
 
 @client.event
 async def on_ready():
@@ -24,7 +27,7 @@ async def on_ready():
 
 
 # I can use this for scheduling tasks in Discord. Maybe.
-@tasks.loop(minutes=10)
+@tasks.loop(seconds=30)
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
@@ -47,33 +50,50 @@ async def reload(ctx, extension):
     client.load_extension(extension)
 
 
-@client.command(aliases=["8ball", 'eight_ball', '8 ball'])
-async def _8ball(ctx, *, question):
-    responses = [
-        "It is certain",
-        "Without a doubt",
-        "You may rely on it",
-        "Reply hazy try again",
-        "Better not tell you now",
-        "Don't count on it",
-        "My reply is no",
-    ]
-    answer = random.choice(responses)
+@client.command()
+async def pay_me(ctx):
+    ctx.send(f"More information on how to get paid: https://www.outlierstudios.co/onboarding/invoicing (PASS: SamDev)")
 
-    await print(f"Question: {question} \nAnswer: {answer}")
-    await ctx.send(f"Question: {question} \nAnswer: {answer}")
+# @client.command(aliases=["8ball", 'eight_ball', '8 ball'])
+# async def _8ball(ctx, *, question):
+#     responses = [
+#         "It is certain",
+#         "Without a doubt",
+#         "You may rely on it",
+#         "Reply hazy try again",
+#         "Better not tell you now",
+#         "Don't count on it",
+#         "My reply is no",
+#     ]
+#     answer = random.choice(responses)
+
+#     await print(f"Question: {question} \nAnswer: {answer}")
+#     await ctx.send(f"Question: {question} \nAnswer: {answer}")
 
 
 @client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please pass in all required arguments.")
+    pass
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Command not found. Please try again.")
 
 
 @client.command()
 async def clear(ctx, amount: int):
     await ctx.channel.purge(limit=amount)
 
+
+@client.command()
+async def request(ctx):
+    r = await request.get("http://www.tutorialspoint.com/python/")
+    ctx.send(r[:300])
+    print(r[:300])
+
+
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please specify a number of messages to delete.")
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

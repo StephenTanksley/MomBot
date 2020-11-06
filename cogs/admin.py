@@ -51,6 +51,5 @@ class Admin(commands.Cog):
                 await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
                 return
 
-
 def setup(client):
     client.add_cog(Admin(client))
