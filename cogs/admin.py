@@ -51,5 +51,13 @@ class Admin(commands.Cog):
                 await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
                 return
 
+    @commands.command()
+    async def invoice_new(self, ctx):
+        # Currently this is a manual process. Ideally I can make this automatic.
+        date = input(
+            "What date is this invoice due by? (e.g. mm-dd-yyyy)? \n> ")
+        await ctx.send(f"Don't forget to turn in your invoices to Daniel (dciurlizza@outlierstudios.co) by the end of the day on {date}")
+
+
 def setup(client):
     client.add_cog(Admin(client))

@@ -20,12 +20,9 @@ client = commands.Bot(command_prefix='!')
 
 # When the bot has the information it needs from Discord, the bot is in a ready state. It is ready to execute its function. Read docs for the on_ready state.
 
-# If we assign the bot a role on the channel, it can do everything that a user with that role can do.
-
 
 @client.event
 async def on_ready():
-    # await client.change_presence(status=discord.Status.idle, activity=discord.Game("Managing the server."))
     change_status.start()
     print("MomBot is ready.")
 
@@ -56,7 +53,7 @@ async def reload(ctx, extension):
 
 @client.command()
 async def pay_me(ctx):
-    ctx.send(f"More information on how to get paid: https://www.outlierstudios.co/onboarding/invoicing (PASS: SamDev)")
+    await ctx.send(f"More information on how to get paid: https://www.outlierstudios.co/onboarding/invoicing (PASS: SamDev)")
 
 # @client.command(aliases=["8ball", 'eight_ball', '8 ball'])
 # async def _8ball(ctx, *, question):
