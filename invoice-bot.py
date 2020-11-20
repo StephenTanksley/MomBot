@@ -51,7 +51,7 @@ async def reload(ctx, extension):
     client.load_extension(extension)
 
 
-@client.command()
+@client.command(aliases=['payme', 'pay', 'payment'])
 async def pay_me(ctx):
     await ctx.send(f"More information on how to get paid: https://www.outlierstudios.co/onboarding/invoicing (PASS: SamDev)")
 

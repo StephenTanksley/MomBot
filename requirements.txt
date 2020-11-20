@@ -1,4 +1,4 @@
-git+https://github.com/Rapptz/discord.py@async
+git+https://github.com/Rapptz/discord.py/tree/async
 requests==2.24.0
 discord.py==1.5.1
 python-dotenv==0.15.0
